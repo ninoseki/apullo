@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require "thor"
 require "json"
+require "parallel"
+require "thor"
 
 module Apullo
   class CLI < Thor
@@ -24,7 +25,7 @@ module Apullo
           }
         end
 
-        Apullo.fingerprints.map do |klass|
+        Parallel.map(Apullo.fingerprints) do |klass|
           fingerprint = klass.new(target)
           [fingerprint.name, fingerprint.results]
         end.to_h

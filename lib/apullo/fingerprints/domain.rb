@@ -52,8 +52,12 @@ module Apullo
         values.reject(&:empty?).empty? ? [] : values
       end
 
+      def whois_client
+        @whois_client ||= Whois::Client.new(timeout: 3)
+      end
+
       def whois
-        @whois ||= Whois.whois(target.host)
+        @whois ||= whois_client.lookup(target.host)
       rescue Timeout::Error, Whois::Error
         nil
       end
