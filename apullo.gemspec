@@ -38,6 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "oga", "~> 2.15"
   spec.add_dependency "public_suffix", "~> 4.0"
   spec.add_dependency "ssh_scan", "~> 0.0"
+  spec.add_dependency "thor", "~> 0.20"
   spec.add_dependency "whois", "~> 5.0"
   spec.add_dependency "whois-parser", "~> 1.2"
 end
