@@ -1,10 +1,12 @@
 # apullo
 
+[![Gem Version](https://badge.fury.io/rb/apullo.svg)](https://badge.fury.io/rb/apullo)
 [![Build Status](https://travis-ci.com/ninoseki/apullo.svg?branch=master)](https://travis-ci.com/ninoseki/apullo)
+[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/ninoseki/apullo)](https://hub.docker.com/r/ninoseki/apullo)
 [![Coverage Status](https://coveralls.io/repos/github/ninoseki/apullo/badge.svg?branch=master)](https://coveralls.io/github/ninoseki/apullo?branch=master)
 [![CodeFactor](https://www.codefactor.io/repository/github/ninoseki/apullo/badge)](https://www.codefactor.io/repository/github/ninoseki/apullo)
 
-![eyecatch](./images/eyecatch.png)
+![eyecatch](https://raw.githubusercontent.com/ninoseki/apullo/master/images/eyecatch.png)
 
 A scanner for taking basic fingerprints.
 
@@ -12,6 +14,8 @@ A scanner for taking basic fingerprints.
 
 ```bash
 gem install apullo
+# or
+docker pull ninoseki/apullo
 ```
 
 ## Usage
