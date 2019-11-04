@@ -53,15 +53,19 @@ module Apullo
 
       private
 
+      def default_favicon_url
+        "#{target.uri.scheme}://#{target.uri.host}:#{target.uri.port}/favicon.ico"
+      end
+
       def favicon_url
         return nil unless @body
 
         doc = Oga.parse_html(@body)
         icon = doc.at_css("link[rel='shortcut icon']") || doc.at_css("link[rel='icon']")
-        return nil unless icon
+        return default_favicon_url unless icon
 
         href = icon.get("href")
-        return nil unless href
+        return default_favicon_url unless href
 
         href.start_with?("http://", "https://") ? href : target.url + href
       end
