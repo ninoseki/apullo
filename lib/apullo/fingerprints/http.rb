@@ -84,7 +84,7 @@ module Apullo
           @body = response.body
           @path = path
         end
-      rescue Errno::ECONNREFUSED, Net::HTTPError, OpenSSL::OpenSSLError => _e
+      rescue Errno::ECONNREFUSED, Net::HTTPError, OpenSSL::OpenSSLError, Timeout::Error => _e
         nil
       end
 
