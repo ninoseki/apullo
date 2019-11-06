@@ -20,5 +20,13 @@ RSpec.describe Apullo::Fingerprint::HTTP, :vcr do
         expect(results.dig(:cert, key)).to eq(nil)
       end
     end
+
+    context "when given headers" do
+      it do
+        subject.headers = { "User-Agent": "foo" }
+        results = subject.results
+        expect(results).to be_a(Hash)
+      end
+    end
   end
 end
