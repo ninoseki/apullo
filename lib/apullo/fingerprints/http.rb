@@ -21,7 +21,10 @@ module Apullo
           out << {
             body: body,
             cert: cert,
-            favicon: favicon
+            favicon: favicon,
+            meta: {
+              url: target.url
+            }
           }
         end.first
       end
@@ -89,7 +92,12 @@ module Apullo
 
         location = response["Location"]
         if location && limit.positive?
-          get(location, limit: limit - 1)
+          if location.start_with?("http://", "https://")
+            rebuild_target location
+            get(target.uri.path)
+          else
+            get(location, limit: limit - 1)
+          end
         else
           @peer_cert = http.peer_cert
           @body = response.body
@@ -105,6 +113,10 @@ module Apullo
         else
           Net::HTTP.start(target.uri.host, target.uri.port, use_ssl: true)
         end
+      end
+
+      def rebuild_target(url)
+        @target = Target.new(url)
       end
     end
   end
