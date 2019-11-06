@@ -7,10 +7,12 @@ require "thor"
 module Apullo
   class CLI < Thor
     desc "check [Target]", "Take fingerprints from a target(IP, domain or URL)"
+    method_option :headers, type: :hash, default: {}
     def check(target)
       target = Target.new(target)
+      headers = options["headers"]
 
-      results = build_results(target)
+      results = build_results(target, headers: headers)
       meta = { target: target.id }
       results = results.merge(meta: meta)
 
@@ -18,7 +20,7 @@ module Apullo
     end
 
     no_commands do
-      def build_results(target)
+      def build_results(target, headers: {})
         unless target.valid?
           return {
             error: "Invalid target is given. Target should be an IP, domain or URL."
@@ -27,6 +29,8 @@ module Apullo
 
         Parallel.map(Apullo.fingerprints) do |klass|
           fingerprint = klass.new(target)
+          fingerprint.headers = headers if fingerprint.respond_to?(:headers=)
+
           [fingerprint.name, fingerprint.results]
         end.to_h
       end

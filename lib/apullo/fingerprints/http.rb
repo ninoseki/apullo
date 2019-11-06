@@ -7,6 +7,13 @@ require "openssl"
 module Apullo
   module Fingerprint
     class HTTP < Base
+      attr_writer :headers
+
+      def initialize(target)
+        @target = target
+        @headers = {}
+      end
+
       def results
         @results ||= [].tap do |out|
           get(target.uri.path)
@@ -53,6 +60,10 @@ module Apullo
 
       private
 
+      def headers
+        @headers.compact
+      end
+
       def default_favicon_url
         "#{target.uri.scheme}://#{target.uri.host}:#{target.uri.port}/favicon.ico"
       end
@@ -73,7 +84,7 @@ module Apullo
       def get(path, limit: 3)
         http = build_http
         path = path.empty? ? "/" : path
-        request = Net::HTTP::Get.new(path)
+        request = Net::HTTP::Get.new(path, headers)
         response = http.request request
 
         location = response["Location"]
