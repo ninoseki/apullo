@@ -48,7 +48,7 @@ module Apullo
         response = http.request(request)
 
         response.code.to_i == 200 ? response.body : nil
-      rescue Errno::ECONNREFUSED, Net::HTTPError, OpenSSL::OpenSSLError => _e
+      rescue Errno::ECONNREFUSED, Net::HTTPError, OpenSSL::OpenSSLError, Timeout::Error => _e
         nil
       end
 
