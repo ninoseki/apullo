@@ -10,7 +10,7 @@ RSpec.describe Apullo::Fingerprint::HTTP, :vcr do
     it do
       results = subject.results
 
-      expect(results.keys).to eq([:body, :cert, :favicon])
+      expect(results.keys).to eq([:body, :cert, :favicon, :meta])
 
       [:md5, :sha1, :sha256, :mmh3].each do |key|
         expect(results.dig(:body, key)).to be_a(String).or be_a(Integer)
