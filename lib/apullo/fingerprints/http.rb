@@ -24,6 +24,7 @@ module Apullo
           body: body,
           cert: cert,
           favicon: favicon,
+          headers: response_headers,
           meta: {
             url: target.url
           }
@@ -60,6 +61,10 @@ module Apullo
 
         favicon = Favicon.new(url)
         favicon.results
+      end
+
+      def response_headers
+        @response_headers || {}
       end
 
       def headers
@@ -100,6 +105,7 @@ module Apullo
         else
           @peer_cert = http.peer_cert
           @body = response.body
+          @response_headers = response.each_header.to_h
           @path = path
         end
       rescue Errno::ECONNREFUSED, Net::HTTPError, OpenSSL::OpenSSLError, Timeout::Error => _e
