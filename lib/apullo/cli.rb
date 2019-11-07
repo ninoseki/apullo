@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "json"
-require "parallel"
 require "thor"
 
 module Apullo
@@ -27,7 +26,7 @@ module Apullo
           }
         end
 
-        Parallel.map(Apullo.fingerprints) do |klass|
+        Apullo.fingerprints.map do |klass|
           fingerprint = klass.new(target)
           fingerprint.headers = headers if fingerprint.respond_to?(:headers=)
 
