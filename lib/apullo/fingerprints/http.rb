@@ -10,23 +10,24 @@ module Apullo
       attr_writer :headers
 
       def initialize(target)
-        @target = target
+        super target
+
         @headers = {}
       end
 
-      def results
-        @results ||= [].tap do |out|
-          get(target.uri.path)
+      private
 
-          out << {
-            body: body,
-            cert: cert,
-            favicon: favicon,
-            meta: {
-              url: target.url
-            }
+      def build_results
+        get(target.uri.path)
+
+        {
+          body: body,
+          cert: cert,
+          favicon: favicon,
+          meta: {
+            url: target.url
           }
-        end.first
+        }
       end
 
       def cert
@@ -60,8 +61,6 @@ module Apullo
         favicon = Favicon.new(url)
         favicon.results
       end
-
-      private
 
       def headers
         @headers.compact

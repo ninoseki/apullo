@@ -8,13 +8,13 @@ module Apullo
       DEFAULT_OPTIONS = { "timeout" => 3 }.freeze
       DEFAULT_PORT = 22
 
-      def results
-        @results ||= pluck
-      end
-
       private
 
-      def pluck
+      def build_results
+        pluck_fingerprints
+      end
+
+      def pluck_fingerprints
         result = scan
         keys = result.dig("keys") || []
         keys.map do |cipher, data|
@@ -27,7 +27,7 @@ module Apullo
       end
 
       def scan
-        return {} unless target.ipv4
+        return {} unless target.host
 
         engine = SSHScan::ScanEngine.new
         dest = "#{target.host}:#{DEFAULT_PORT}"

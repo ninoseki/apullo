@@ -15,14 +15,14 @@ module Apullo
         Resolv::DNS::Resource::IN::AAAA,
       ].freeze
 
-      def results
+      private
+
+      def build_results
         {
           dns: resources,
           whois: contacts,
         }
       end
-
-      private
 
       def dns
         @dns ||= Resolv::DNS.new
