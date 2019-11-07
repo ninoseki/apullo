@@ -31,6 +31,7 @@ Commands:
 It takes basic network fingerprints of a target.
 
 - Hashes of an HTTP response body
+- Headers of an HTTP response
 - Hashes of an SSL certificate
 - Hashes of a favicon image
 - Hashes of an SSH host key
@@ -54,9 +55,46 @@ $ apullo check https://example.com
       "sha256": "9250711c54de546f4370e0c3d3a3ec45bc96092a25a4a71a1afa396af7047eb8"
     },
     "favicon": {
+    },
+    "headers": {
+      "accept-ranges": "bytes",
+      "cache-control": "max-age=604800",
+      "content-type": "text/html; charset=UTF-8",
+      "date": "Thu, 07 Nov 2019 23:21:43 GMT",
+      "etag": "\"3147526947+gzip\"",
+      "expires": "Thu, 14 Nov 2019 23:21:43 GMT",
+      "last-modified": "Thu, 17 Oct 2019 07:18:26 GMT",
+      "server": "ECS (sec/9739)",
+      "vary": "Accept-Encoding",
+      "x-cache": "HIT",
+      "content-length": "648"
+    },
+    "meta": {
+      "url": "https://example.com"
     }
   },
   "domain": {
+    "dns": {
+      "ns": [
+        "b.iana-servers.net",
+        "a.iana-servers.net"
+      ],
+      "cname": [
+
+      ],
+      "soa": [
+        "noc.dns.icann.org"
+      ],
+      "mx": [
+
+      ],
+      "a": [
+        "93.184.216.34"
+      ],
+      "aaaa": [
+        "2606:2800:220:1:248:1893:25C8:1946"
+      ]
+    },
     "whois": {
       "registrant_contacts": [
         {
@@ -84,27 +122,6 @@ $ apullo check https://example.com
       "technical_contacts": [
 
       ]
-    },
-    "dns": {
-      "ns": [
-        "a.iana-servers.net",
-        "b.iana-servers.net"
-      ],
-      "cname": [
-
-      ],
-      "soa": [
-        "noc.dns.icann.org"
-      ],
-      "mx": [
-
-      ],
-      "a": [
-        "93.184.216.34"
-      ],
-      "aaaa": [
-        "2606:2800:220:1:248:1893:25C8:1946"
-      ]
     }
   },
   "ssh": {
@@ -113,84 +130,12 @@ $ apullo check https://example.com
     "target": "https://example.com"
   }
 }
-
-$ apullo check jppost-be.top
-{
-  "http": {
-    "body": {
-      "md5": "74ad15c4ab3f67eee1d546e22248931f",
-      "mmh3": -330759974,
-      "sha1": "c0280893956852b0c07ae4da752ee5d776d248b8",
-      "sha256": "28fa3b0beaf188d48b32557fa4df8f0aa451bd10f8e8bb26e919009d2d41b8fb"
-    },
-    "cert": {
-    },
-    "favicon": {
-      "md5": "ad184c25a1a01d97696dcb59a1ffef74",
-      "mmh3": 111036816,
-      "sha1": "cb4842a54c3e96408765290cb810793302c17f0b",
-      "sha256": "6949c58f841fa21a89e2e2375ae5645e1db62385f89a0218766f2b0a9c490fb8",
-      "meta": {
-        "url": "https://www.post.japanpost.jp/img/common/touch-icon.png"
-      }
-    }
-  },
-  "domain": {
-    "whois": {
-      "registrant_contacts": [
-
-      ],
-      "admin_contacts": [
-
-      ],
-      "technical_contacts": [
-
-      ]
-    },
-    "dns": {
-      "ns": [
-        "ns1.bdydns.cn",
-        "ns2.bdydns.cn"
-      ],
-      "cname": [
-
-      ],
-      "soa": [
-        "sa.dudns.com"
-      ],
-      "mx": [
-
-      ],
-      "a": [
-        "193.148.69.12"
-      ],
-      "aaaa": [
-
-      ]
-    }
-  },
-  "ssh": {
-    "rsa": {
-      "md5": "960bb068dbfb9aa9f9d6899c15844fca",
-      "sha1": "d36555028decde1f931b47c90e469fc52e8f364a",
-      "sha256": "cf3c7ea7b9442f71423f2253a9c0e448fd0d619e1abc7e519499cd789fac6e74"
-    },
-    "ecdsa-sha2-nistp256": {
-      "md5": "551222e53a38c10817653a723e6caf0c",
-      "sha1": "cd6044db29b30d35f32e26e74d66258570cd6527",
-      "sha256": "0664dbea7580f9430da6d0ba13e7a4bba0f1efd449c895a6adcc147abc958ce6"
-    },
-    "ed25519": {
-      "md5": "6da2245d9a211731c2d229ea7cce829b",
-      "sha1": "d86afd8fca1a052249ef3a0ee26a24f6cc644485",
-      "sha256": "7f0d4b642ea2c236eca4018a2dadff3b8a03c37745f9a9f741d9d246a420f358"
-    }
-  },
-  "meta": {
-    "target": "jppost-be.top"
-  }
-}
 ```
+
+## Notes
+
+- `mmh3` is a 32 bit signed int value of MurmurHash3.
+- Keys of `http.headers` are downcased.
 
 ## License
 
