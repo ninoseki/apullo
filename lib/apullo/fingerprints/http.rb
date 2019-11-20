@@ -75,10 +75,18 @@ module Apullo
         "#{target.uri.scheme}://#{target.uri.host}:#{target.uri.port}/favicon.ico"
       end
 
+      def build_doc
+        Oga.parse_html(@body)
+      rescue ArgumentError, LL::ParserError => _e
+        nil
+      end
+
       def favicon_url
         return nil unless @body
 
-        doc = Oga.parse_html(@body)
+        doc = build_doc
+        return nil unless doc
+
         icon = doc.at_css("link[rel='shortcut icon']") || doc.at_css("link[rel='icon']")
         return default_favicon_url unless icon
 
