@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 2.0"
+  spec.add_development_dependency "bundler", "~> 2.1"
   spec.add_development_dependency "coveralls", "~> 0.8"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.9"
@@ -35,10 +35,10 @@ Gem::Specification.new do |spec|
   spec.add_dependency "ipaddr", "~> 1.2"
   spec.add_dependency "mem", "~> 0.1"
   spec.add_dependency "murmurhash3", "~> 0.1"
-  spec.add_dependency "oga", "~> 2.15"
+  spec.add_dependency "oga", "~> 3.0"
   spec.add_dependency "public_suffix", "~> 4.0"
   spec.add_dependency "ssh_scan", "~> 0.0"
-  spec.add_dependency "thor", "~> 0.20"
+  spec.add_dependency "thor", "~> 1.0"
   spec.add_dependency "whois", "~> 5.0"
   spec.add_dependency "whois-parser", "~> 1.2"
 end
