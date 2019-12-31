@@ -36,6 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "mem", "~> 0.1"
   spec.add_dependency "murmurhash3", "~> 0.1"
   spec.add_dependency "oga", "~> 3.0"
+  spec.add_dependency "parallel", "~> 1.19"
   spec.add_dependency "public_suffix", "~> 4.0"
   spec.add_dependency "ssh_scan", "~> 0.0"
   spec.add_dependency "thor", "~> 1.0"
