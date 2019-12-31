@@ -18,11 +18,15 @@ module Apullo
         result = scan
         keys = result.dig("keys") || []
         keys.map do |cipher, data|
+          raw = data.dig("raw")
           fingerprints = data.dig("fingerprints") || []
-          normalized = fingerprints.map do |hash, value|
+          normalized_fingerprints = fingerprints.map do |hash, value|
             [hash, value.delete(":")]
           end.to_h
-          [cipher, normalized]
+          [
+            cipher,
+            { raw: raw, fingerprints: normalized_fingerprints }
+          ]
         end.to_h
       end
 
