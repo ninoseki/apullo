@@ -1,0 +1,31 @@
+{
+  "keys": {
+    "rsa": {
+      "raw": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDS4ZCRAuR7Gr0SS2B3XR3IYLcwrCVTSu9nzEDIBHxkVYM+zwO4SBXxECJaOZMI14hgYGa1KMGMqoVAtd72Te+Uwmu4iwGNWW5mheAGUMsYJHhUzTpKxcHqhmXCJI9ngbrPO6KoBVSmYQ1QkYBMI/E8jYBPIy8cfMJIeX7/TL8irTrfA3RS04l84ngSCOFipLLsBq4fbDVc6qbMF6Y4hGcknpOY5PbqX/nG2PdNJ68acT9K1IwqXmi9ZukX1yvpH4a1J4EkwbMyrvrV+3f5RYyHOJr+HL9PhDUWu04zxg2RYl75mbLFOA+kZ92YxF8DRMh6k37GD+VvA56Q+33owZl1",
+      "length": 2048,
+      "fingerprints": {
+        "md5": "c9:91:4f:48:43:2f:83:66:cc:22:d3:57:b2:69:40:7a",
+        "sha1": "60:62:35:76:0e:7e:dc:ef:38:54:98:ac:a7:33:61:36:cc:69:5d:52",
+        "sha256": "1e:b4:ec:4a:82:f4:3d:a8:d9:e8:59:9f:53:a8:30:d9:7f:91:04:39:4e:c1:08:cc:34:4f:1b:24:ac:85:ac:c0"
+      }
+    },
+    "ecdsa-sha2-nistp256": {
+      "raw": "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBA85atEvXYtSqNhhv0IckJlvFdigRatvFHhF38vid5pXfist07uWT3pw0nhvi/Kp9Ec/7NMLpDtiy2tuNF4xFY=",
+      "length": 520,
+      "fingerprints": {
+        "md5": "16:d6:ff:5e:6a:5c:25:9a:24:f2:d3:a5:e2:62:4a:d2",
+        "sha1": "ab:6b:72:f7:30:c4:d7:c3:6b:50:15:20:2f:fd:a1:c0:a8:f9:6d:5a",
+        "sha256": "54:1f:cd:a6:42:1a:72:45:62:71:c7:77:cc:48:2a:64:c0:9b:52:bc:00:19:9e:df:07:73:a2:f7:f4:38:2b:ef"
+      }
+    },
+    "ed25519": {
+      "raw": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH+RKoViaKIMPOzjI1khlp1dtdXe6wJkPw/dddOGAtaK",
+      "length": 256,
+      "fingerprints": {
+        "md5": "6c:5b:ce:26:78:f7:8a:3e:b0:36:ec:80:af:28:80:8e",
+        "sha1": "7f:30:f0:f4:3b:20:1f:6a:dd:6a:cc:2a:39:41:2d:2e:f4:1c:48:cd",
+        "sha256": "e9:7d:17:25:bd:5a:65:9c:81:81:2d:b4:07:21:b0:6e:ce:86:89:a4:fc:87:c8:f7:eb:05:db:ad:b7:3f:51:3c"
+      }
+    }
+  }
+}
