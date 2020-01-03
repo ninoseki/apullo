@@ -6,7 +6,7 @@ module Apullo
   module Fingerprint
     class SSH < Base
       DEFAULT_OPTIONS = { "timeout" => 3 }.freeze
-      DEFAULT_PORT = 22
+      DEFAULT_PORTS = [22, 2222].freeze
 
       private
 
@@ -16,7 +16,7 @@ module Apullo
 
       def pluck_fingerprints
         result = scan
-        keys = result.dig("keys") || []
+        keys = result.dig("keys") || {}
         keys.map do |cipher, data|
           raw = data.dig("raw")
           fingerprints = data.dig("fingerprints") || []
@@ -30,13 +30,22 @@ module Apullo
         end.to_h
       end
 
-      def scan
-        return {} unless target.host
+      def _scan(target, port: 22)
+        return nil unless target.host
 
         engine = SSHScan::ScanEngine.new
-        dest = "#{target.host}:#{DEFAULT_PORT}"
+        dest = "#{target.host}:#{port}"
         result = engine.scan_target(dest, DEFAULT_OPTIONS)
         result.to_hash
+      end
+
+      def scan
+        [target].product(DEFAULT_PORTS).each do |target, port|
+          result = _scan(target, port: port)
+          keys = result.dig("keys") || {}
+          return result unless keys.empty?
+        end
+        {}
       end
     end
   end

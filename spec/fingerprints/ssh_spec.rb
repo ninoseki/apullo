@@ -25,5 +25,20 @@ RSpec.describe Apullo::Fingerprint::SSH do
         expect(results.dig(key)).to be_a(Hash)
       end
     end
+
+    context "when 22 port is closed" do
+      before do
+        allow(mock).to receive(:scan_target).with("1.1.1.1:22", "timeout" => 3).and_return({})
+        allow(mock).to receive(:scan_target).with("1.1.1.1:2222", "timeout" => 3).and_return(scan_results)
+        allow(SSHScan::ScanEngine).to receive(:new).and_return(mock)
+      end
+
+      it do
+        results = subject.results
+        %w(rsa ecdsa-sha2-nistp256 ed25519).each do |key|
+          expect(results.dig(key)).to be_a(Hash)
+        end
+      end
+    end
   end
 end
