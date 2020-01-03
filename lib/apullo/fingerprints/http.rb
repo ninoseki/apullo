@@ -37,7 +37,7 @@ module Apullo
         hash = Hash.new(@peer_cert.to_der)
         {
           md5: hash.md5,
-          serial: @peer_cert.serial,
+          serial: @peer_cert.serial.to_i,
           sha1: hash.sha1,
           sha256: hash.sha256,
         }
@@ -93,7 +93,9 @@ module Apullo
         href = icon.get("href")
         return default_favicon_url unless href
 
-        href.start_with?("http://", "https://") ? href : target.url + href
+        return href if href.start_with?("http://", "https://")
+
+        target.url.end_with?("/") ? target.url + href : "#{target.url}/#{href}"
       end
 
       def get(path, limit: 3)
