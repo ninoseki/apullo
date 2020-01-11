@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "resolv"
+require "uri"
 require "whois-parser"
 
 module Apullo
@@ -21,6 +22,9 @@ module Apullo
         {
           dns: resources,
           whois: contacts,
+          meta: {
+            links: links
+          }
         }
       end
 
@@ -87,6 +91,16 @@ module Apullo
           registrant_contacts: registrant_contacts,
           admin_contacts: admin_contacts,
           technical_contacts: technical_contacts
+        }
+      end
+
+      def securitytrails_link
+        target.domain? ? "https://securitytrails.com/domain/#{target.host}/dns" : "https://securitytrails.com/list/ip/#{target.host}"
+      end
+
+      def links
+        {
+          securitytrails: securitytrails_link
         }
       end
     end

@@ -7,9 +7,9 @@ RSpec.describe Apullo::Fingerprint::HTTP, :vcr do
   let(:target) { Apullo::Target.new id }
 
   describe "#results" do
-    it do
-      results = subject.results
+    let(:results) { subject.results }
 
+    it do
       expect(results.keys).to eq([:body, :cert, :favicon, :headers, :meta])
 
       [:md5, :sha1, :sha256, :mmh3].each do |key|
@@ -19,6 +19,9 @@ RSpec.describe Apullo::Fingerprint::HTTP, :vcr do
       [:md5, :sha1, :sha256, :serial].each do |key|
         expect(results.dig(:cert, key)).to eq(nil)
       end
+
+      expect(results.dig(:meta, :links, :shodan, :body)).to eq("https://www.shodan.io/search?query=http.html_hash%3A-2087618365")
+      expect(results.dig(:meta, :links, :censys, :body)).to eq("https://censys.io/ipv4?q=ea8fac7c65fb589b0d53560f5251f74f9e9b243478dcb6b3ea79b5e36449c8d9")
     end
 
     context "when given headers" do
