@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
+require "mem"
 require "net/http"
 require "oga"
 require "openssl"
+require "uri"
 
 module Apullo
   module Fingerprint
     class HTTP < Base
+      include Mem
+
       attr_writer :headers
 
       def initialize(target)
@@ -26,7 +30,8 @@ module Apullo
           favicon: favicon,
           headers: response_headers,
           meta: {
-            url: target.url
+            url: target.url,
+            links: links
           }
         }
       end
@@ -42,6 +47,7 @@ module Apullo
           sha256: hash.sha256,
         }
       end
+      memoize :cert
 
       def body
         return {} unless @body
@@ -54,6 +60,7 @@ module Apullo
           sha256: hash.sha256,
         }
       end
+      memoize :body
 
       def favicon
         url = favicon_url
@@ -62,6 +69,7 @@ module Apullo
         favicon = Favicon.new(url)
         favicon.results
       end
+      memoize :favicon
 
       def response_headers
         @response_headers || {}
@@ -132,6 +140,38 @@ module Apullo
 
       def rebuild_target(url)
         @target = Target.new(url)
+      end
+
+      def shodan_link
+        uri = URI("https://www.shodan.io/search")
+        uri.query = URI.encode_www_form(query: "http.html_hash:#{body.dig(:mmh3)}")
+        body_link = body.empty? ? nil : uri.to_s
+
+        uri.query = URI.encode_www_form(q: "ssl.cert.serial:#{cert.dig(:serial)}")
+        cert_link = cert.empty? ? nil : uri.to_s
+
+        uri.query = URI.encode_www_form(query: "http.favicon.hash:#{favicon.dig(:mmh3)}")
+        favicon_link = favicon.empty? ? nil : uri.to_s
+
+        { body: body_link, cert: cert_link, favicon: favicon_link }.compact
+      end
+
+      def censys_link
+        uri = URI("https://censys.io/ipv4")
+        uri.query = URI.encode_www_form(q: body.dig(:sha256))
+        body_link = body.empty? ? nil : uri.to_s
+
+        uri.query = URI.encode_www_form(q: cert.dig(:sha256))
+        cert_link = cert.empty? ? nil : uri.to_s
+
+        { body: body_link, cert: cert_link }.compact
+      end
+
+      def links
+        {
+          shodan: shodan_link,
+          censys: censys_link
+        }
       end
     end
   end

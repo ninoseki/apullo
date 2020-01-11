@@ -24,7 +24,7 @@ module Apullo
           sha1: hash.sha1,
           sha256: hash.sha256,
           meta: {
-            url: uri.to_s
+            url: uri.to_s,
           }
         }
       end

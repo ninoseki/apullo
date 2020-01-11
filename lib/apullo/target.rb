@@ -39,12 +39,6 @@ module Apullo
       uri && (ip? | domain?)
     end
 
-    private
-
-    def _url
-      @_url ||= id.start_with?("http://", "https://") ? id : "http://#{id}"
-    end
-
     def ip?
       IPAddr.new host
       true
@@ -56,6 +50,12 @@ module Apullo
       return false if host.match? /[0-9]\z/
 
       PublicSuffix.valid?(host, default_rule: nil)
+    end
+
+    private
+
+    def _url
+      @_url ||= id.start_with?("http://", "https://") ? id : "http://#{id}"
     end
 
     def resolve
