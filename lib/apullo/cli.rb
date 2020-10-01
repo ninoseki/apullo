@@ -6,6 +6,12 @@ require "thor"
 
 module Apullo
   class CLI < Thor
+    class << self
+      def exit_on_failure?
+        true
+      end
+    end
+
     desc "check [Target]", "Take fingerprints from a target(IP, domain or URL)"
     method_option :headers, type: :hash, default: {}
     def check(target)
